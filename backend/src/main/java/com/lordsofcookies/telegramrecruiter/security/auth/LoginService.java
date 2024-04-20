@@ -2,7 +2,7 @@ package com.lordsofcookies.telegramrecruiter.security.auth;
 
 import com.lordsofcookies.telegramrecruiter.repository.TelegramUserRepository;
 import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;
-import com.lordsofcookies.telegramrecruiter.dto.TelegramUserRequest;
+import com.lordsofcookies.telegramrecruiter.dto.request.TelegramUserRequest;
 import com.lordsofcookies.telegramrecruiter.service.TelegramUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
