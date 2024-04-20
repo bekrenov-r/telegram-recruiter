@@ -10,5 +10,8 @@ spring:
     request-matchers:
       permit-all: >
         POST /login/telegram
+    jwt:
+      secret:
+      expiration-time-millis: 604800000
 server:
   port: 8081

@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +15,12 @@ import java.util.Date;
 @Component
 public class JwtProvider implements InitializingBean {
     private Key key;
-    private static final String secretKey = "";
-    private static final long expirationTimeMillis = 7*24*60*60*1000;
+
+    @Value("${spring.security.jwt.secret}")
+    private String secretKey;
+
+    @Value("${spring.security.jwt.expiration-time-millis}")
+    private long expirationTimeMillis;
 
     @Override
     public void afterPropertiesSet() throws Exception {
