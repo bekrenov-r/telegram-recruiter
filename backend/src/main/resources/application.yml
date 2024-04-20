@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: telegram-recruiter
+  datasource:
+    url: jdbc:postgresql://localhost:5432/telegram_recruiter
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  security:
+    request-matchers:
+      permit-all: >
+        POST /login/telegram
+    jwt:
+      secret:
+      expiration-time-millis: 604800000
+server:
+  port: 8081
