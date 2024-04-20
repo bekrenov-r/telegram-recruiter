@@ -67,11 +67,10 @@ create table offer
     id uuid primary key,
     name text,
     description text,
-    salary_range_bottom int,
-    salary_range_top int,
     city text,
     position text,
     work_mode text,
+    level text,
     created_at timestamp,
     company_id uuid,
     created_by_recruiter_id text,
@@ -88,4 +87,12 @@ create table offer_technology
 );
 
 insert into telegram_user(telegram_id, first_name, last_name, telegram_username, role) values('1234', 'John', 'Doe', null, 'MODERATOR');
+insert into telegram_user(telegram_id, first_name, last_name, telegram_username, role) values('12345', 'Jane', 'Doe', null, 'RECRUITER');
 insert into company(id, name, created_by_telegram_user) values('c29700e9-4f60-45de-910f-fdf2086e5eb7', 'Space Fincher', '1234');
+insert into recruiter(telegram_id, company_id) values ('12345', 'c29700e9-4f60-45de-910f-fdf2086e5eb7');
+insert into offer(id, name, description, city, position, work_mode, level, created_at, company_id, created_by_recruiter_id)
+values
+    (gen_random_uuid(), 'Junior Software Engineer', 'Something', 'Warszawa', 'BACKEND_DEV', 'OFFICE', 'JUNIOR', current_timestamp, 'c29700e9-4f60-45de-910f-fdf2086e5eb7', '12345'),
+    (gen_random_uuid(), 'Senior Frontend Developer', 'Something', 'Warszawa', 'FRONTEND_DEV', 'REMOTE', 'SENIOR', current_timestamp, 'c29700e9-4f60-45de-910f-fdf2086e5eb7', '12345'),
+    (gen_random_uuid(), 'Regular Full Stack Developer', 'Something', 'Warszawa', 'FULLSTACK_DEV', 'HYBRID', 'REGULAR', current_timestamp, 'c29700e9-4f60-45de-910f-fdf2086e5eb7', '12345'),
+    (gen_random_uuid(), 'Intern Project Manager', 'Something', 'Warszawa', 'PROJECT_MANAGER', 'REMOTE', 'INTERN', current_timestamp, 'c29700e9-4f60-45de-910f-fdf2086e5eb7', '12345');

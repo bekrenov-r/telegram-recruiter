@@ -28,12 +28,6 @@ public class Offer {
 
     private String description;
 
-    @Column(name = "salary_range_bottom")
-    private Integer salaryRangeBottom;
-
-    @Column(name = "salary_range_top")
-    private Integer salaryRangeTop;
-
     @Column
     private String city;
 
