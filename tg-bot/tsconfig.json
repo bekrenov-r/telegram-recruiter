@@ -7,6 +7,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["src/*.ts"],
+  "include": ["src/*.ts", "src/commands/index.ts"],
   "exclude": ["node_modules"]
 }

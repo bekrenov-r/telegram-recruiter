@@ -1,6 +1,6 @@
 import TelegramBot from "node-telegram-bot-api";
 import "dotenv/config";
-import { setupCommands } from "./index";
+import { setupCommands } from "./commands/index";
 
 const token: string | undefined = process.env.TG_BOT_TOKEN;
 if (!token) {
