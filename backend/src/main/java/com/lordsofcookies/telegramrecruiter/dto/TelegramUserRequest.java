@@ -10,5 +10,6 @@ public record TelegramUserRequest(
         String firstName,
         @JsonProperty("last_name")
         String lastName,
+        @JsonProperty("username")
         String telegramUsername
 ) { }

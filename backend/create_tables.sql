@@ -1,38 +1,44 @@
 drop table if exists telegram_user cascade;
 create table telegram_user
 (
-    id          serial primary key,
-    telegram_id text unique,
+    telegram_id text primary key,
     first_name  text,
     last_name   text,
-    email text,
     telegram_username text,
-    role text,
-    preferred_location_voivodeship text
+    role text
 );
 
-drop table if exists user_technology;
-create table user_technology(
-    user_id text,
+drop table if exists candidate cascade;
+create table candidate
+(
+    telegram_id text primary key,
+    email text,
+    preferred_location_voivodeship text,
+    foreign key (telegram_id) references telegram_user(telegram_id)
+);
+
+drop table if exists candidate_technology;
+create table candidate_technology(
+    candidate_id text,
     technology text
 );
 
-drop table if exists user_position;
-create table user_position(
-    user_id text,
+drop table if exists candidate_position;
+create table candidate_position(
+    candidate_id text,
     position text
 );
 
-drop table if exists user_level;
-create table user_level
+drop table if exists candidate_level;
+create table candidate_level
 (
-    user_id  text,
+    candidate_id  text,
     level text
 );
 
-drop table if exists user_work_mode;
-create table user_work_mode
+drop table if exists candidate_work_mode;
+create table candidate_work_mode
 (
-    user_id  text,
+    candidate_id  text,
     work_mode text
 );
