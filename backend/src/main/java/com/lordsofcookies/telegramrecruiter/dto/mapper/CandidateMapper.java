@@ -1,6 +1,6 @@
 package com.lordsofcookies.telegramrecruiter.dto.mapper;
 
-import com.lordsofcookies.telegramrecruiter.dto.CandidateResponse;
+import com.lordsofcookies.telegramrecruiter.dto.response.CandidateResponse;
 import com.lordsofcookies.telegramrecruiter.entity.Candidate;
 import org.mapstruct.Mapper;
 

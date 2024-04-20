@@ -1,7 +1,7 @@
 package com.lordsofcookies.telegramrecruiter.controller;
 
-import com.lordsofcookies.telegramrecruiter.dto.CandidateRequest;
-import com.lordsofcookies.telegramrecruiter.dto.CandidateResponse;
+import com.lordsofcookies.telegramrecruiter.dto.request.CandidateRequest;
+import com.lordsofcookies.telegramrecruiter.dto.response.CandidateResponse;
 import com.lordsofcookies.telegramrecruiter.service.CandidateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

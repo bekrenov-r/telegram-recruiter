@@ -1,4 +1,4 @@
-package com.lordsofcookies.telegramrecruiter.dto;
+package com.lordsofcookies.telegramrecruiter.dto.request;
 
 import com.lordsofcookies.telegramrecruiter.enums.Level;
 import com.lordsofcookies.telegramrecruiter.enums.Position;

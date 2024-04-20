@@ -21,6 +21,6 @@ public class Company {
     private String name;
 
     @OneToOne(targetEntity = TelegramUser.class)
-    @JoinColumn(name = "created_by")
+    @JoinColumn(name = "created_by_telegram_user")
     private TelegramUser createdBy;
 }

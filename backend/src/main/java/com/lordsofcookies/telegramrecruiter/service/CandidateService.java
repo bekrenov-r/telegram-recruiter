@@ -1,7 +1,7 @@
 package com.lordsofcookies.telegramrecruiter.service;
 
-import com.lordsofcookies.telegramrecruiter.dto.CandidateRequest;
-import com.lordsofcookies.telegramrecruiter.dto.CandidateResponse;
+import com.lordsofcookies.telegramrecruiter.dto.request.CandidateRequest;
+import com.lordsofcookies.telegramrecruiter.dto.response.CandidateResponse;
 import com.lordsofcookies.telegramrecruiter.dto.mapper.CandidateMapper;
 import com.lordsofcookies.telegramrecruiter.entity.Candidate;
 import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;

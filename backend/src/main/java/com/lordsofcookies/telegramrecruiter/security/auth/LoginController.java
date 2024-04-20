@@ -1,6 +1,6 @@
 package com.lordsofcookies.telegramrecruiter.security.auth;
 
-import com.lordsofcookies.telegramrecruiter.dto.TelegramUserRequest;
+import com.lordsofcookies.telegramrecruiter.dto.request.TelegramUserRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

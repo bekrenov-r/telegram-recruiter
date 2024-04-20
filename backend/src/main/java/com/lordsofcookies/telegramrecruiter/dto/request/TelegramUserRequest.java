@@ -1,4 +1,4 @@
-package com.lordsofcookies.telegramrecruiter.dto;
+package com.lordsofcookies.telegramrecruiter.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
