@@ -1,0 +1,41 @@
+# Dependency directories
+node_modules/
+
+# Built output
+dist/
+
+# Environment variables
+.env
+
+# Editor-specific files
+.vscode/
+*.code-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# TypeScript compilation artifacts
+*.js
+*.js.map
+
+# Build process related
+*.log
+*.pid
+
+# IDE-specific files
+.idea/
+*.suo
+*.ntvs*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+tmp/
+.vercel
