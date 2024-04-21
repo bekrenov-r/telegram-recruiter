@@ -6,12 +6,14 @@ import com.lordsofcookies.telegramrecruiter.dto.response.RecruiterResponse;
 import com.lordsofcookies.telegramrecruiter.entity.Company;
 import com.lordsofcookies.telegramrecruiter.entity.Recruiter;
 import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;
+import com.lordsofcookies.telegramrecruiter.exception.ApplicationException;
 import com.lordsofcookies.telegramrecruiter.repository.CompanyRepository;
 import com.lordsofcookies.telegramrecruiter.repository.RecruiterRepository;
 import com.lordsofcookies.telegramrecruiter.repository.TelegramUserRepository;
 import com.lordsofcookies.telegramrecruiter.security.Role;
 import com.lordsofcookies.telegramrecruiter.util.CurrentAuthUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +26,12 @@ public class RecruiterService {
 
     public RecruiterResponse createRecruiterProfile(RecruiterRequest request) {
         TelegramUser telegramUser = telegramUserRepository.findByTelegramIdOrThrowDefault(CurrentAuthUtil.getCurrentAuth().getName());
+        if(recruiterRepository.existsByTelegramId(telegramUser.getTelegramId())){
+            throw new ApplicationException(
+                    "Recruiter with id [" + telegramUser.getTelegramId() + "] already exists",
+                    HttpStatus.CONFLICT
+            );
+        }
         telegramUser.setRole(Role.RECRUITER);
         Company company = companyRepository.findByIdOrThrowDefault(request.companyId());
         Recruiter recruiter = new Recruiter(null, telegramUser, company);

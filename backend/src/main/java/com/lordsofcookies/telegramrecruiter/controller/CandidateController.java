@@ -26,4 +26,14 @@ public class CandidateController {
     public ResponseEntity<CandidateResponse> updateCandidateProfile(@RequestBody CandidateRequest request){
         return ResponseEntity.ok(candidateService.updateCandidateProfile(request));
     }
+
+    @PatchMapping("/{telegramId}/notifications/subscribe")
+    public void subscribeToNotifications(@PathVariable String telegramId){
+        candidateService.subscribeToNotifications(telegramId);
+    }
+
+    @PatchMapping("/{telegramId}/notifications/unsubscribe")
+    public void unsubscribeFromNotifications(@PathVariable String telegramId){
+        candidateService.unsubscribeFromNotifications(telegramId);
+    }
 }

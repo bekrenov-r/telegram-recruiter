@@ -12,7 +12,8 @@ spring:
   security:
     request-matchers:
       permit-all: >
-        POST /login/telegram
+        POST /login/telegram,
+        PATCH /candidates/**/notifications/**
     jwt:
       secret: fjnkhjvbnmkldnskfifjeodklmscvfnjldiosklmcdnfjo
       expiration-time-millis: 604800000
