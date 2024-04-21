@@ -5,10 +5,13 @@ import com.lordsofcookies.telegramrecruiter.dto.response.CandidateResponse;
 import com.lordsofcookies.telegramrecruiter.dto.mapper.CandidateMapper;
 import com.lordsofcookies.telegramrecruiter.entity.Candidate;
 import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;
+import com.lordsofcookies.telegramrecruiter.exception.ApplicationException;
 import com.lordsofcookies.telegramrecruiter.repository.CandidateRepository;
 import com.lordsofcookies.telegramrecruiter.repository.TelegramUserRepository;
+import com.lordsofcookies.telegramrecruiter.security.Role;
 import com.lordsofcookies.telegramrecruiter.util.CurrentAuthUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,8 +23,12 @@ public class CandidateService {
 
     public CandidateResponse createCandidateProfile(CandidateRequest request) {
         TelegramUser currentUser = telegramUserRepository.findByTelegramIdOrThrowDefault(CurrentAuthUtil.getCurrentAuth().getName());
+        currentUser.setRole(Role.CANDIDATE);
         if(candidateRepository.existsByTelegramId(currentUser.getTelegramId())){
-            return candidateMapper.entityToResponse(candidateRepository.findByTelegramIdOrThrowDefault(currentUser.getTelegramId()));
+            throw new ApplicationException(
+                    "Candidate with id [" + currentUser.getTelegramId() + "] already exists",
+                    HttpStatus.CONFLICT
+            );
         }
         Candidate candidate = new Candidate(
                 null,

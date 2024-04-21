@@ -1,6 +1,7 @@
 package com.lordsofcookies.telegramrecruiter.repository;
 
 import com.lordsofcookies.telegramrecruiter.entity.Candidate;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -10,6 +11,7 @@ public interface CandidateRepository extends JpaRepository<Candidate, String>, J
     Optional<Candidate> findByTelegramId(String telegramId);
     boolean existsByTelegramId(String telegramId);
     default Candidate findByTelegramIdOrThrowDefault(String telegramId){
-        return findByTelegramId(telegramId).orElseThrow(RuntimeException::new);
+        return findByTelegramId(telegramId)
+                .orElseThrow(() -> new EntityNotFoundException("Candidate with id [" + telegramId + "] not found"));
     }
 }
