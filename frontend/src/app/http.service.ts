@@ -11,6 +11,7 @@ import {jwtDecode, JwtPayload} from 'jwt-decode';
 import {UserJwtPayload} from "./http/jwt.model";
 import {NewOffer} from "./dashboard/new-offer/new-offer.model";
 import {AcceptOffer} from "./accept-offer/accept-offer.model";
+import {Router} from "@angular/router";
 
 
 @Injectable({
@@ -21,7 +22,8 @@ export class HttpService {
   private _token: string;
   jwtDecoded: UserJwtPayload;
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   get token() {
@@ -41,12 +43,14 @@ export class HttpService {
     console.log(headers)
     this.http.post<string>(`${environment.backendUrl}/candidates`, user, {headers}).subscribe(jwt => {
       this.token = jwt;
+      this.router.navigate(['/']);
     })
   }
 
   registrateRecruiter(recruiter?: Hr) {
     console.log(recruiter)
-    return this.http.post<string>(`${environment.backendUrl}/recruiters`, recruiter).pipe(tap(jwt => {
+    let headers = new HttpHeaders().append('Authorization', this.token);
+    return this.http.post<string>(`${environment.backendUrl}/recruiters`, recruiter, {headers}).pipe(tap(jwt => {
       this.token = jwt;
       console.log(this.jwtDecoded);
     }))
@@ -67,7 +71,6 @@ export class HttpService {
 
   createOffer(offer: NewOffer) {
     let headers = new HttpHeaders().append('Authorization', this.token);
-
     return this.http.post(`${environment.backendUrl}/offers`, offer, {headers})
   }
 
@@ -76,7 +79,8 @@ export class HttpService {
     return this.http.post(`${environment.backendUrl}/applications`, acceptOffer, {headers})
   }
   attachCVToApplication(cv: File, offerId: string) {
-    let formData = new FormData().append('', cv);
+    let formData = new FormData();
+    formData.append('file', cv);
     let headers = new HttpHeaders().append('Authorization', this.token);
     return this.http.patch(`${environment.backendUrl}/applications/${offerId}/cv`, formData, {headers})
   }

@@ -43,6 +43,7 @@ export class AccountComponent implements OnInit, AfterViewChecked{
     private router: Router
   ) {}
   ngOnInit() {
+    this.choice = this.httpService.jwtDecoded['role'] || 'pracownik';
     // window['Telegram']['webApp']['MainButton'].text("Zaloguj się jako "+ this.choice);
     this.allLevels = this.accountService.levels;
     this.positions = this.accountService.positions;
