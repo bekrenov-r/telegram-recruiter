@@ -39,3 +39,5 @@ lerna-debug.log*
 # Temporary files
 tmp/
 .vercel
+
+backend/src/main/resources/keystore/private.key

@@ -15,3 +15,6 @@ spring:
       expiration-time-millis: 604800000
 server:
   port: 8081
+  ssl:
+    key-store: classpath:keystore/recruiter-keystore.p12
+    key-store-password:
