@@ -33,16 +33,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = getJwtFromHeader(request);
-        System.out.println(token);
-        if(jwtProvider.validateToken(token)){
-            String userId = jwtProvider.getSubject(token);
-            TelegramUser user = telegramUserRepository.findByTelegramIdOrThrowDefault(userId);
-            if(user == null)
-                throw new EntityNotFoundException("User with id " + userId + "not found");
-            Authentication authToken = new JwtAuthenticationToken(null, userId, token);
-            SecurityContextHolder.getContext().setAuthentication(authToken);
-        } else throw new JwtException("JWT token is expired");
+        if(request.getHeader(HttpHeaders.AUTHORIZATION) == null){
+            filterChain.doFilter(request, response);
+        }
+        String userId = request.getHeader(HttpHeaders.AUTHORIZATION);
+        var authentication = new JwtAuthenticationToken(null, userId);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 
@@ -53,14 +49,5 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     String[] arr = s.split(" ");
                     return new AntPathRequestMatcher(arr[1], arr[0]);
                 }).anyMatch(m -> m.matches(request));
-    }
-
-    private String getJwtFromHeader(HttpServletRequest request){
-        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if(header == null)
-            throw new JwtException("Authorization is required for this request");
-        if(!header.startsWith(BEARER_PREFIX))
-            throw new JwtException("Invalid auth header");
-        return header.substring(BEARER_PREFIX.length());
     }
 }
