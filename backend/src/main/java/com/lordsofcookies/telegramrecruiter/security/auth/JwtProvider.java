@@ -1,5 +1,6 @@
 package com.lordsofcookies.telegramrecruiter.security.auth;
 
+import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtProvider implements InitializingBean {
@@ -27,10 +29,15 @@ public class JwtProvider implements InitializingBean {
         key = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(TelegramUser telegramUser){
+        Map<String, String> claims = Map.of(
+                "firstName", telegramUser.getFirstName(),
+                "lastName", telegramUser.getLastName()
+        );
         Date currentDate = new Date(System.currentTimeMillis());
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setClaims(claims)
+                .setSubject(telegramUser.getUsername())
                 .setIssuedAt(currentDate)
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTimeMillis))
                 .signWith(key, SignatureAlgorithm.HS256)
