@@ -5,7 +5,7 @@
 <form [formGroup]="form" (ngSubmit)="submitForm()">
   <mat-form-field>
     <mat-label>Imie</mat-label>
-    <input matInput formControlName="name">
+    <input matInput formControlName="firstName">
   </mat-form-field>
   <mat-form-field>
     <mat-label>Nazwisko</mat-label>
@@ -17,28 +17,10 @@
   </mat-form-field>
 
   <mat-form-field *ngIf="choice === 'pracownik'">
-    <mat-label>Technlogie</mat-label>
-    <mat-chip-grid #chipGrid>
-      <div *ngFor="let option of technologies">
-        <mat-chip-row (removed)="remove(option)">
-          {{option[0].toUpperCase()+option.slice(1).toLowerCase()}}
-          <button matChipRemove><mat-icon fontIcon="cancel"></mat-icon></button>
-        </mat-chip-row>
-      </div>
-    </mat-chip-grid>
-    <input matInput
-           [required]="choice === 'pracownik'"
-           #techInput
-           [matChipInputFor]="chipGrid"
-           (matChipInputTokenEnd)="add($event)"
-           [matAutocomplete]="auto"
-           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-    >
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <div *ngFor="let option of filteredTechnologies | async">
-        <mat-option [value]="option.name">{{option.text[0].toUpperCase()+option.text.slice(1).toLowerCase()}}</mat-option>
-      </div>
-    </mat-autocomplete>
+    <mat-label>Technologie</mat-label>
+    <mat-select formControlName="technologies" multiple>
+      <mat-option *ngFor="let tech of allTechnologies" [value]="tech.name">{{tech.text[0].toUpperCase()+tech.text.slice(1).toLowerCase()}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-expansion-panel *ngIf="choice === 'pracownik'">
     <mat-expansion-panel-header>

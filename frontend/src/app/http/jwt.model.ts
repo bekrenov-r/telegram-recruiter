@@ -1,4 +1,5 @@
 import * as jwt from 'jwt-decode';
-export interface JwtPayload extends jwt.JwtPayload {
-  roles: string;
+export interface UserJwtPayload extends jwt.JwtPayload {
+  firstName?: string;
+  lastName?: string;
 }

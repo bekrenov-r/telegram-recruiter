@@ -1,10 +1,13 @@
+import {Company} from "./offer/company.model";
+
 export interface Offer {
   id: string;
-  title: string;
-  stack: string[];
   description: string;
   city: string;
-  firm: string;
-  mode: string;
-  date: string;
+  company: Company;
+  level: string
+  name: string
+  position: string
+  technologies: string[]
+  workMode: string
 }

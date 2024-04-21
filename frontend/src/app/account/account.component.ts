@@ -9,6 +9,7 @@ import {Employee} from "../dashboard/employee.model";
 import {AccountService} from "./account.service";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Hr} from "../dashboard/hr.model";
+import {TelegramService} from "../telegram.service";
 
 
 @Component({
@@ -21,7 +22,6 @@ export class AccountComponent implements OnInit, AfterViewChecked{
   form: FormGroup;
   employeeForm: FormGroup;
   hrForm: FormGroup;
-  filteredTechnologies: Observable<{ name: string, text: string }[]>;
   technologies: string[] = [];
   allLevels: string[];
   levels: string[] = [];
@@ -37,9 +37,11 @@ export class AccountComponent implements OnInit, AfterViewChecked{
 
   constructor(
     private httpService: HttpService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private tg: TelegramService
   ) {}
   ngOnInit() {
+    // window['Telegram']['webApp']['MainButton'].text("Zaloguj się jako "+ this.choice);
     this.allLevels = this.accountService.levels;
     this.positions = this.accountService.positions;
     this.allModes = this.accountService.modes;
@@ -47,18 +49,36 @@ export class AccountComponent implements OnInit, AfterViewChecked{
     this.allTechnologies = this.accountService.technologies;
 
     this.employeeForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
-      voivodeship: new FormControl('')
+      technologies: new FormControl('', Validators.required),
+      voivodeship: new FormControl('', Validators.required)
     });
 
     this.hrForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
       surname: new FormControl('', Validators.required),
       companyId: new FormControl('', Validators.required)
     })
 
     this.form = this.employeeForm;
+    this.employeeForm.patchValue({
+      firstName: this.httpService.jwtDecoded.firstName
+    })
+    if(this.httpService.jwtDecoded.lastName) {
+      this.employeeForm.patchValue({
+        lastName: this.httpService.jwtDecoded.lastName
+      })
+    }
+
+    this.hrForm.patchValue({
+      firstName: this.httpService.jwtDecoded.firstName
+    })
+    if(this.httpService.jwtDecoded.lastName) {
+      this.hrForm.patchValue({
+        lastName: this.httpService.jwtDecoded.lastName
+      })
+    }
     // this.filteredTechnologies = this.form.get('technologies')!.valueChanges.pipe(
     //   startWith(null),
     //   map((option: string | null) => (option ? this._filter(option) : this.allTechnologies.slice())),
@@ -86,6 +106,7 @@ export class AccountComponent implements OnInit, AfterViewChecked{
     const value = (event.value || '').trim();
     if (value) {
       this.technologies.push(value);
+      console.log(this.technologies);
     }
     event.chipInput!.clear();
   }
@@ -122,8 +143,9 @@ export class AccountComponent implements OnInit, AfterViewChecked{
       this.httpService.registrateUser(employee);
     } else {
       let hr: Hr = {
-        companyId: this.form.value.company
+        companyId: this.form.value.companyId
       };
+      this.httpService.registrateRecruiter(hr);
     }
 
     // console.log(user)
@@ -133,11 +155,4 @@ export class AccountComponent implements OnInit, AfterViewChecked{
     }
   }
 
-  private _filter(value: string): {name: string, text: string}[] {
-    const filterValue = value.toLowerCase();
-
-    let filtered = this.allTechnologies.filter(option => option.text.toLowerCase().includes(filterValue));
-    filtered = filtered.filter(option => !this.technologies.includes(option.text.toLowerCase()));
-    return filtered;
-  }
 }

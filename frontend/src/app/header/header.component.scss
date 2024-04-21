@@ -2,4 +2,5 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   background: white;
+  background: var(--tg-theme-bg-color);
 }

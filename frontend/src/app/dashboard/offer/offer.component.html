@@ -1,12 +1,16 @@
 <span [style]="{'color': '#0057FF', 'font-size': '16px'}" [routerLink]="['/']">Wstecz</span>
-<div class="title">{{offer?.title}}</div>
-<div class="stack">
-  <div *ngFor="let tech of offer?.stack">{{tech}}</div>
-</div>
-<div class="description">
-  {{offer?.description}}
-</div>
-<div class="bottom-desc">
-  <div><div>{{offer?.city}}</div><div>{{offer?.firm}}</div></div>
-  <div><div>{{offer?.mode}}</div><div>{{offer?.date | date}}</div></div>
-</div>
+  <mat-card>
+    <mat-card-header>
+      <div class="title">{{offer.name}}</div>
+      <div class="stack">
+        <div *ngFor="let tech of offer.technologies">{{tech}}</div>
+      </div>
+    </mat-card-header>
+  <div class="description">
+    {{offer.description}}
+  </div>
+  <div class="bottom-desc">
+    <div><div>{{offer.city}}</div><div>{{offer.company.name}}</div></div>
+    <div><div>{{offer.workMode[0].toUpperCase()+offer.workMode.toLowerCase().slice(1)}}</div><div>{{offer.position}}</div></div>
+  </div>
+</mat-card>

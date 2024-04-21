@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Offer} from "../offer.model";
 import {HttpService} from "../../http.service";
 import {ActivatedRoute} from "@angular/router";
+import {TelegramService} from "../../telegram.service";
 
 @Component({
   selector: 'app-offer',
@@ -13,10 +14,12 @@ export class OfferComponent implements OnInit{
 
   constructor(
     private http: HttpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tg: TelegramService
   ) {}
   ngOnInit() {
     let offerId = this.route.snapshot.params['id'];
     this.offer = this.http.offers.find(offer => offer.id === offerId)!;
+    // this.tg.getTg().MainButton.text("Aplikuj");
   }
 }

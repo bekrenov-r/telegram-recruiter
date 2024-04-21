@@ -16,6 +16,8 @@ export class TelegramService {
   constructor() {}
 
   getTg() {
-    return window['Telegram']['WebApp'];
+    return window['Telegram']
   }
+
+
 }

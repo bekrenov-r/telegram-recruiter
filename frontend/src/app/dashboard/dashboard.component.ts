@@ -37,15 +37,15 @@ export class DashboardComponent implements OnInit{
       mode: new FormControl(),
       level: new FormControl(),
     })
-    this.http.getOffers({}).subscribe();
-    // offers => this.offers = offers
+    this.http.getOffers({}).subscribe(
+      offers => this.offers = offers);
     this.offers = this.http.offers;
     // this.tg.MainButton.show();
   }
 
   onFilter() {
     let filter: Filter = {...this.form.value};
-    this.http.getOffers(filter).subscribe();
-    // offers => this.offers = offers
+    this.http.getOffers(filter).subscribe(
+    offers => this.offers = offers);
   }
 }
