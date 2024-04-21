@@ -86,6 +86,20 @@ create table offer_technology
     foreign key (offer_id) references offer(id)
 );
 
+drop table if exists application;
+create table application(
+    id uuid primary key ,
+    applicant_id text,
+    offer_id uuid,
+    first_name text,
+    last_name text,
+    email text,
+    phone_number text,
+    message_to_recruiter text,
+    cv_path text,
+    foreign key (offer_id) references offer(id)
+);
+
 insert into telegram_user(telegram_id, first_name, last_name, telegram_username, role) values('1234', 'John', 'Doe', null, 'MODERATOR');
 insert into telegram_user(telegram_id, first_name, last_name, telegram_username, role) values('12345', 'Jane', 'Doe', null, 'RECRUITER');
 insert into company(id, name, created_by_telegram_user) values('c29700e9-4f60-45de-910f-fdf2086e5eb7', 'Space Fincher', '1234');
