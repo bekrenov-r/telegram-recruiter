@@ -1,4 +1,7 @@
 spring:
+  config:
+    activate:
+      on-profile: dev, prod
   application:
     name: telegram-recruiter
   datasource:
@@ -15,6 +18,12 @@ spring:
       expiration-time-millis: 604800000
 server:
   port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+server:
   ssl:
     key-store: classpath:keystore/recruiter-keystore.p12
     key-store-password:
