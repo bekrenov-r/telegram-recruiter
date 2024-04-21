@@ -12,7 +12,6 @@ drop table if exists candidate cascade;
 create table candidate
 (
     telegram_id text primary key,
-    email text,
     preferred_location_voivodeship text,
     foreign key (telegram_id) references telegram_user(telegram_id)
 );

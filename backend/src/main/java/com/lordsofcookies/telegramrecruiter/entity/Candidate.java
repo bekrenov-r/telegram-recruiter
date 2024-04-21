@@ -26,9 +26,6 @@ public class Candidate {
     @MapsId
     private TelegramUser telegramUser;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "preferred_location_voivodeship")
     private String preferredLocationVoivodeship;
 
@@ -38,13 +35,13 @@ public class Candidate {
     @Enumerated(EnumType.STRING)
     private Set<Technology> preferredTechnologies;
 
-    @ElementCollection(targetClass = Technology.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = Position.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "candidate_position", joinColumns = @JoinColumn(name = "candidate_id"))
     @Column(name = "position")
     @Enumerated(EnumType.STRING)
     private Set<Position> preferredPositions;
 
-    @ElementCollection(targetClass = Technology.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = Level.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "candidate_level", joinColumns = @JoinColumn(name = "candidate_id"))
     @Column(name = "level")
     @Enumerated(EnumType.STRING)

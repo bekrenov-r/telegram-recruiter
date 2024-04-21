@@ -1,4 +1,4 @@
-package com.lordsofcookies.telegramrecruiter.dto.response;
+package com.lordsofcookies.telegramrecruiter.dto.request;
 
 import com.lordsofcookies.telegramrecruiter.enums.Level;
 import com.lordsofcookies.telegramrecruiter.enums.Position;
@@ -8,8 +8,7 @@ import com.lordsofcookies.telegramrecruiter.enums.WorkMode;
 import java.util.Set;
 import java.util.UUID;
 
-public record OfferResponse(
-        UUID id,
+public record OfferRequest(
         String name,
         String description,
         String city,
@@ -17,5 +16,5 @@ public record OfferResponse(
         Level level,
         WorkMode workMode,
         Set<Technology> technologies,
-        CompanyResponse company
+        UUID companyId
 ) { }

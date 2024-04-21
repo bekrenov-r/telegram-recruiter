@@ -23,14 +23,12 @@ public class CandidateService {
         Candidate candidate = new Candidate(
                 null,
                 currentUser,
-                request.email(),
                 request.preferredLocationVoivodeship(),
                 request.preferredTechnologies(),
                 request.preferredPositions(),
                 request.preferredLevels(),
                 request.preferredWorkModes()
         );
-        var save = candidateRepository.save(candidate);
-        return candidateMapper.entityToResponse(save);
+        return candidateMapper.entityToResponse(candidateRepository.save(candidate));
     }
 }
