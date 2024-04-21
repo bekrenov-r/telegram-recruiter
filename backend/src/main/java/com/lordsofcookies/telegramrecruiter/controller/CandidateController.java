@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/candidates")
@@ -19,9 +16,14 @@ public class CandidateController {
     private final CandidateService candidateService;
 
     @PostMapping
-    public ResponseEntity<CandidateResponse> createCandidateProfile(@RequestBody @Valid CandidateRequest request){
+    public ResponseEntity<CandidateResponse> createCandidateProfile(@RequestBody CandidateRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(candidateService.createCandidateProfile(request));
+    }
+
+    @PutMapping
+    public ResponseEntity<CandidateResponse> updateCandidateProfile(@RequestBody CandidateRequest request){
+        return ResponseEntity.ok(candidateService.updateCandidateProfile(request));
     }
 }

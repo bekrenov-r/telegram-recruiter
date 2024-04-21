@@ -8,10 +8,9 @@ import com.lordsofcookies.telegramrecruiter.enums.WorkMode;
 import java.util.Set;
 
 public record CandidateRequest(
-        String email,
+        boolean enableOfferNotifications,
         String preferredLocationVoivodeship,
         Set<Technology> preferredTechnologies,
-        Set<Position> preferredPositions,
         Set<Level> preferredLevels,
         Set<WorkMode> preferredWorkModes
 ) {}

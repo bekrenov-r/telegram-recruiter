@@ -9,9 +9,9 @@ import java.util.Set;
 
 public record CandidateResponse(
         TelegramUserResponse telegramUser,
+        boolean enableOfferNotifications,
         String preferredLocationVoivodeship,
         Set<Technology> preferredTechnologies,
-        Set<Position> preferredPositions,
         Set<Level> preferredLevels,
         Set<WorkMode> preferredWorkModes
 ) { }

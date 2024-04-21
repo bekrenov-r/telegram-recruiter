@@ -1,5 +1,6 @@
 package com.lordsofcookies.telegramrecruiter.controller;
 
+import com.lordsofcookies.telegramrecruiter.dto.request.OfferRequest;
 import com.lordsofcookies.telegramrecruiter.dto.request.OffersSearchCriteria;
 import com.lordsofcookies.telegramrecruiter.dto.response.OfferResponse;
 import com.lordsofcookies.telegramrecruiter.enums.Level;
@@ -8,6 +9,7 @@ import com.lordsofcookies.telegramrecruiter.enums.Technology;
 import com.lordsofcookies.telegramrecruiter.enums.WorkMode;
 import com.lordsofcookies.telegramrecruiter.service.OfferService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,5 +26,12 @@ public class OfferController {
             @ModelAttribute OffersSearchCriteria criteria
     ){
         return ResponseEntity.ok(offerService.getOffersByCriteria(criteria));
+    }
+
+    @PostMapping
+    public ResponseEntity<OfferResponse> createOffer(@RequestBody OfferRequest request){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(offerService.createOffer(request));
     }
 }

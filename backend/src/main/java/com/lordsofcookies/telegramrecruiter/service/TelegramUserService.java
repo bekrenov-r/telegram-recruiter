@@ -25,9 +25,15 @@ public class TelegramUserService {
 
     public TelegramUser updateUser(TelegramUserRequest request){
         TelegramUser user = telegramUserRepository.findByTelegramIdOrThrowDefault(request.telegramId());
-        user.setFirstName(request.firstName());
-        user.setLastName(request.lastName());
-        user.setTelegramUsername(request.telegramUsername());
+        if(request.firstName() != null){
+            user.setFirstName(request.firstName());
+        }
+        if(request.lastName() != null){
+            user.setLastName(request.lastName());
+        }
+        if(request.telegramUsername() != null){
+            user.setTelegramUsername(request.telegramUsername());
+        }
         return telegramUserRepository.save(user);
     }
 }

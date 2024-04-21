@@ -23,14 +23,23 @@ public class CandidateService {
         Candidate candidate = new Candidate(
                 null,
                 currentUser,
-                request.email(),
+                request.enableOfferNotifications(),
                 request.preferredLocationVoivodeship(),
                 request.preferredTechnologies(),
-                request.preferredPositions(),
                 request.preferredLevels(),
                 request.preferredWorkModes()
         );
-        var save = candidateRepository.save(candidate);
-        return candidateMapper.entityToResponse(save);
+        return candidateMapper.entityToResponse(candidateRepository.save(candidate));
+    }
+
+    public CandidateResponse updateCandidateProfile(CandidateRequest request) {
+        TelegramUser currentUser = telegramUserRepository.findByTelegramIdOrThrowDefault(CurrentAuthUtil.getCurrentAuth().getName());
+        Candidate candidate = candidateRepository.findByTelegramIdOrThrowDefault(currentUser.getTelegramId());
+        candidate.setEnableOfferNotifications(request.enableOfferNotifications());
+        candidate.setPreferredLocationVoivodeship(request.preferredLocationVoivodeship());
+        candidate.setPreferredTechnologies(request.preferredTechnologies());
+        candidate.setPreferredLevels(request.preferredLevels());
+        candidate.setPreferredWorkModes(request.preferredWorkModes());
+        return candidateMapper.entityToResponse(candidateRepository.save(candidate));
     }
 }
