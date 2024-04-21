@@ -2,6 +2,7 @@ package com.lordsofcookies.telegramrecruiter.security.auth;
 
 import com.lordsofcookies.telegramrecruiter.entity.TelegramUser;
 import com.lordsofcookies.telegramrecruiter.repository.TelegramUserRepository;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -40,7 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 throw new EntityNotFoundException("User with id " + userId + "not found");
             Authentication authToken = new JwtAuthenticationToken(null, userId, token);
             SecurityContextHolder.getContext().setAuthentication(authToken);
-        } else throw new RuntimeException("JWT token is expired");
+        } else throw new JwtException("JWT token is expired");
         filterChain.doFilter(request, response);
     }
 
@@ -56,9 +57,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private String getJwtFromHeader(HttpServletRequest request){
         String header = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(header == null)
-            throw new RuntimeException("Authorization is required for this request");
+            throw new JwtException("Authorization is required for this request");
         if(!header.startsWith(BEARER_PREFIX))
-            throw new RuntimeException("Invalid auth header");
+            throw new JwtException("Invalid auth header");
         return header.substring(BEARER_PREFIX.length());
     }
 }

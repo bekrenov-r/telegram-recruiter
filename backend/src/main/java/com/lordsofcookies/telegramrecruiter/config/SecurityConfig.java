@@ -1,5 +1,6 @@
 package com.lordsofcookies.telegramrecruiter.config;
 
+import com.lordsofcookies.telegramrecruiter.exception.ExceptionHandlingFilter;
 import com.lordsofcookies.telegramrecruiter.security.auth.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +39,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new ExceptionHandlingFilter(), JwtAuthFilter.class)
                 .authorizeHttpRequests(
                         registry -> registry.anyRequest().permitAll()
                 ).build();
