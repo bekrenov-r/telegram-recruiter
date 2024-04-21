@@ -21,7 +21,11 @@ public class OfferNotifier {
     private final CandidateRepository candidateRepository;
 
     public void notifyCandidates(Offer offer){
-        List<Candidate> candidates =  candidateRepository.findAll(CandidateSpecification.candidateFitsToOffer(offer));
+        List<Candidate> candidates =  candidateRepository.findAll(CandidateSpecification.candidateFitsToOffer(offer))
+                .stream()
+                .filter(Candidate::isEnableOfferNotifications)
+                .toList();
+        System.out.println(candidates);
         if(candidates.isEmpty()) return;
         List<String> candidatesIds = candidates.stream()
                 .map(Candidate::getTelegramId)

@@ -23,6 +23,7 @@ public class CandidateService {
         Candidate candidate = new Candidate(
                 null,
                 currentUser,
+                request.enableOfferNotifications(),
                 request.preferredLocationVoivodeship(),
                 request.preferredTechnologies(),
                 request.preferredPositions(),

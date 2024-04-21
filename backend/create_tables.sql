@@ -13,6 +13,7 @@ create table candidate
 (
     telegram_id text primary key,
     preferred_location_voivodeship text,
+    enable_offer_notifications boolean,
     foreign key (telegram_id) references telegram_user(telegram_id)
 );
 

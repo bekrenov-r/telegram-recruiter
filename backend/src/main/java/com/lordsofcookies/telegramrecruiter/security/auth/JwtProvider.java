@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -30,10 +31,9 @@ public class JwtProvider implements InitializingBean {
     }
 
     public String generateToken(TelegramUser telegramUser){
-        Map<String, String> claims = Map.of(
-                "firstName", telegramUser.getFirstName(),
-                "lastName", telegramUser.getLastName()
-        );
+        Map<String, String> claims = new HashMap<>();
+        claims.put("firstName", telegramUser.getFirstName());
+        claims.put("lastName", telegramUser.getLastName());
         Date currentDate = new Date(System.currentTimeMillis());
         return Jwts.builder()
                 .setClaims(claims)

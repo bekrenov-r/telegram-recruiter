@@ -26,6 +26,9 @@ public class Candidate {
     @MapsId
     private TelegramUser telegramUser;
 
+    @Column(name = "enable_offer_notifications")
+    private boolean enableOfferNotifications;
+
     @Column(name = "preferred_location_voivodeship")
     private String preferredLocationVoivodeship;
 
