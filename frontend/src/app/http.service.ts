@@ -37,6 +37,10 @@ export class HttpService {
   }
 
   registrateUser(user: Employee) {
+    user = {
+      enableOfferNotifications: true,
+      ...user
+    }
     console.log(user);
     console.log(this.token);
     let headers = new HttpHeaders().append('Authorization', this.token);
