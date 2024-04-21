@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-stepper>
+    <mat-step>
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <mat-form-field>
+          <mat-label>Imie</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Nazwisko</mat-label>
+          <input matInput formControlName="surname">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <button mat-raised-button color="primary">Wyślij</button>
+      </form>
+    </mat-step>
+  </mat-stepper>
+</mat-card>

@@ -1,0 +1,5 @@
+<mat-toolbar>
+  <div class="logo"><b>RecruIT</b></div>
+  <button *ngIf="path !== 'account'" mat-flat-button color="primary" [routerLink]="['/', 'account']">Konto</button>
+  <button *ngIf="path === 'account'" mat-flat-button color="primary" [routerLink]="['/']">Oferty</button>
+</mat-toolbar>

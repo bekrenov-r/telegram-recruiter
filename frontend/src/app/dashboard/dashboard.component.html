@@ -1,0 +1,41 @@
+<div class="filter-bars">
+  <form [formGroup]="form" (ngSubmit)="onFilter()">
+    <mat-form-field>
+      <mat-label>Lokalizacja</mat-label>
+      <mat-select formControlName="voivodeship" (blur)="onFilter()">
+        <mat-option *ngFor="let voivodeship of allVoivodeships" [value]="voivodeship">{{voivodeship[0].toUpperCase()+voivodeship.slice(1).toLowerCase()}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Tryb pracy</mat-label>
+      <mat-select formControlName="mode" multiple (blur)="onFilter()">
+        <mat-option *ngFor="let mode of allModes" [value]="mode">{{mode[0].toUpperCase()+mode.slice(1).toLowerCase()}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Poziom</mat-label>
+      <mat-select formControlName="level" multiple (blur)="onFilter()">
+        <mat-option *ngFor="let level of allLevels" [value]="level">{{level[0].toUpperCase()+level.slice(1).toLowerCase()}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+</div>
+
+<div class="offers-list">
+  <mat-card class="offer" *ngFor="let offer of offers" [routerLink]="['/', 'offers', offer.id]">
+    <mat-card-header>
+      <div class="title">{{offer.title}}</div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="stack">
+        <div *ngFor="let tech of offer.stack">{{tech}}</div>
+      </div>
+      <div class="description">{{offer.description}}</div>
+      <div class="bottom-desc">
+        <div><div>{{offer.city}}</div><div>{{offer.firm}}</div></div>
+        <div><div>{{offer.mode}}</div><div>{{offer.date | date}}</div></div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

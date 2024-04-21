@@ -1,0 +1,33 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+mat-panel-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.selected {
+  background: #5690FF;
+  color: white !important;
+}
+.select {
+  background: #B5CEFF;
+  display: flex;
+  padding: 5px;
+  border-radius: 2rem;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  .choice {
+    width: 40%;
+    border-radius: 2rem;
+    padding: 15px;
+    font-size: 18px;
+    color: black;
+    display: flex;
+    justify-content: center;
+  }
+  .choice:not(.selected) {
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,29 @@
+.stack, .description {
+  font-size: 16px;
+}
+.stack {
+  margin: 16px 0;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  div {
+    background: #B5CEFF;
+    padding: 8px;
+    border-radius: 1rem;
+  }
+}
+
+.title {
+  font-size: 20px;
+}
+
+.bottom-desc {
+  font-size: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  & > * {
+    display: flex;
+    justify-content: space-between;
+  }
+}

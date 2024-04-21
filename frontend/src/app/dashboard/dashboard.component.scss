@@ -1,0 +1,47 @@
+
+.offers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 18px;
+}
+.stack, .description {
+  font-size: 16px;
+}
+.stack {
+  margin: 16px 0;
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  div {
+    background: #B5CEFF;
+    padding: 8px;
+    border-radius: 1rem;
+  }
+}
+
+.offer {
+  border-radius: 1rem;
+  box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+
+form {
+  display: flex;
+  gap: 5px;
+}
+
+.bottom-desc {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex-direction: column;
+  & > * {
+    display: flex;
+    justify-content: space-between;
+  }
+}

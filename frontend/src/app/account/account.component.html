@@ -1,0 +1,66 @@
+<div class="select">
+  <div class="choice" [ngClass]="{selected: choice === 'pracownik'}" (click)="onChangeChoice()">Pracownik</div>
+  <div class="choice" [ngClass]="{selected: choice === 'rekruter'}" (click)="onChangeChoice()">Rekruter</div>
+</div>
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <mat-form-field>
+    <mat-label>Imie</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwisko</mat-label>
+    <input matInput formControlName="surname">
+  </mat-form-field>
+  <mat-form-field *ngIf="choice === 'rekruter'">
+    <mat-label>Nazwa firmy</mat-label>
+    <input matInput formControlName="companyId" [required]="choice === 'rekruter'">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="choice === 'pracownik'">
+    <mat-label>Technlogie</mat-label>
+    <mat-chip-grid #chipGrid>
+      <div *ngFor="let option of technologies">
+        <mat-chip-row (removed)="remove(option)">
+          {{option[0].toUpperCase()+option.slice(1).toLowerCase()}}
+          <button matChipRemove><mat-icon fontIcon="cancel"></mat-icon></button>
+        </mat-chip-row>
+      </div>
+    </mat-chip-grid>
+    <input matInput
+           [required]="choice === 'pracownik'"
+           #techInput
+           [matChipInputFor]="chipGrid"
+           (matChipInputTokenEnd)="add($event)"
+           [matAutocomplete]="auto"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    >
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <div *ngFor="let option of filteredTechnologies | async">
+        <mat-option [value]="option.name">{{option.text[0].toUpperCase()+option.text.slice(1).toLowerCase()}}</mat-option>
+      </div>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-expansion-panel *ngIf="choice === 'pracownik'">
+    <mat-expansion-panel-header>
+      Wybór trybu pracy
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <mat-checkbox *ngFor="let option of allModes" (change)="addMode($event, option)">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-checkbox>
+    </mat-panel-description>
+  </mat-expansion-panel>
+  <mat-expansion-panel *ngIf="choice === 'pracownik'">
+    <mat-expansion-panel-header>
+      Poziom stanowiska
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <mat-checkbox *ngFor="let option of allLevels" (change)="addLevel($event, option)">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-checkbox>
+    </mat-panel-description>
+  </mat-expansion-panel>
+  <mat-form-field *ngIf="choice === 'pracownik'">
+    <mat-label>Lokalizacja</mat-label>
+    <mat-select formControlName="voivodeship" [required]="choice === 'pracownik'">
+      <mat-option *ngFor="let option of voivodeships" [value]="option">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Zaloguj się jako kandydat</button>
+</form>

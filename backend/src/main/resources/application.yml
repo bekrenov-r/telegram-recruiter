@@ -4,14 +4,14 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/telegram_recruiter
     username: postgres
-    password: postgres
+    password: zaq1@WSX
     driver-class-name: org.postgresql.Driver
   security:
     request-matchers:
       permit-all: >
         POST /login/telegram
     jwt:
-      secret:
+      secret: fjnkhjvbnmkldnskfifjeodklmscvfnjldiosklmcdnfjo
       expiration-time-millis: 604800000
 server:
   port: 8081

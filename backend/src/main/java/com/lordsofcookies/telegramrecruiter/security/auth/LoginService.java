@@ -21,7 +21,9 @@ public class LoginService {
         }
 
         TelegramUser savedUser = telegramUserService.createUser(request);
-        return jwtProvider.generateToken(savedUser);
+        String s = jwtProvider.generateToken(savedUser);
+        System.out.println(s);
+        return s;
     }
 
 
