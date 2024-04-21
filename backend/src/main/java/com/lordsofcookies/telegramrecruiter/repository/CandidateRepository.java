@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface CandidateRepository extends JpaRepository<Candidate, String>, JpaSpecificationExecutor<Candidate> {
     Optional<Candidate> findByTelegramId(String telegramId);
+    boolean existsByTelegramId(String telegramId);
     default Candidate findByTelegramIdOrThrowDefault(String telegramId){
         return findByTelegramId(telegramId).orElseThrow(RuntimeException::new);
     }

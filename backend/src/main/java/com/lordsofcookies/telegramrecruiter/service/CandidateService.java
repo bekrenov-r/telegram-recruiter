@@ -20,6 +20,9 @@ public class CandidateService {
 
     public CandidateResponse createCandidateProfile(CandidateRequest request) {
         TelegramUser currentUser = telegramUserRepository.findByTelegramIdOrThrowDefault(CurrentAuthUtil.getCurrentAuth().getName());
+        if(candidateRepository.existsByTelegramId(currentUser.getTelegramId())){
+            return candidateMapper.entityToResponse(candidateRepository.findByTelegramIdOrThrowDefault(currentUser.getTelegramId()));
+        }
         Candidate candidate = new Candidate(
                 null,
                 currentUser,
@@ -41,5 +44,19 @@ public class CandidateService {
         candidate.setPreferredLevels(request.preferredLevels());
         candidate.setPreferredWorkModes(request.preferredWorkModes());
         return candidateMapper.entityToResponse(candidateRepository.save(candidate));
+    }
+
+    public void subscribeToNotifications(String telegramId) {
+        TelegramUser telegramUser = telegramUserRepository.findByTelegramIdOrThrowDefault(telegramId);
+        Candidate candidate = candidateRepository.findByTelegramIdOrThrowDefault(telegramUser.getTelegramId());
+        candidate.setEnableOfferNotifications(true);
+        candidateRepository.save(candidate);
+    }
+
+    public void unsubscribeFromNotifications(String telegramId) {
+        TelegramUser telegramUser = telegramUserRepository.findByTelegramIdOrThrowDefault(telegramId);
+        Candidate candidate = candidateRepository.findByTelegramIdOrThrowDefault(telegramUser.getTelegramId());
+        candidate.setEnableOfferNotifications(true);
+        candidateRepository.save(candidate);
     }
 }
