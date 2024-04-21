@@ -1,0 +1,18 @@
+input[type="file"] {
+  visibility: hidden;
+  width: 10px;
+}
+.attach-file {
+  display: flex;
+  align-items: center;
+}
+mat-form-field {
+  width: 100% !important;
+}
+.title {
+  font-size: 20px;
+  margin: 10px;
+}
+.before-title {
+  font-size: 16px;
+}

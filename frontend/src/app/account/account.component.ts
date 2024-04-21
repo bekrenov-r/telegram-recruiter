@@ -10,6 +10,7 @@ import {AccountService} from "./account.service";
 import {MatCheckboxChange} from "@angular/material/checkbox";
 import {Hr} from "../dashboard/hr.model";
 import {TelegramService} from "../telegram.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -38,7 +39,8 @@ export class AccountComponent implements OnInit, AfterViewChecked{
   constructor(
     private httpService: HttpService,
     private accountService: AccountService,
-    private tg: TelegramService
+    private tg: TelegramService,
+    private router: Router
   ) {}
   ngOnInit() {
     // window['Telegram']['webApp']['MainButton'].text("Zaloguj się jako "+ this.choice);
@@ -102,14 +104,6 @@ export class AccountComponent implements OnInit, AfterViewChecked{
       this.technologies.splice(index, 1);
     }
   }
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    if (value) {
-      this.technologies.push(value);
-      console.log(this.technologies);
-    }
-    event.chipInput!.clear();
-  }
 
   addMode(e: MatCheckboxChange, option: string) {
     e.checked ? this.modes.push(option) : this.modes.filter(mode => mode === option);
@@ -145,10 +139,12 @@ export class AccountComponent implements OnInit, AfterViewChecked{
       let hr: Hr = {
         companyId: this.form.value.companyId
       };
-      this.httpService.registrateRecruiter(hr);
+      this.httpService.registrateRecruiter(hr).subscribe(jwt => {
+        this.httpService.token = jwt;
+        this.router.navigate(['/']);
+      });
     }
 
-    // console.log(user)
     if(this.choice === 'pracownik') {
     } else {
       this.httpService.registrateRecruiter();

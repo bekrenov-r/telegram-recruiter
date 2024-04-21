@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { HeaderComponent } from './header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatToolbar} from "@angular/material/toolbar";
@@ -26,15 +25,19 @@ import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSelect, MatSelectTrigger} from "@angular/material/select";
 import { OfferComponent } from './dashboard/offer/offer.component';
+import { NewOfferComponent } from './dashboard/new-offer/new-offer.component';
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import { AcceptOfferComponent } from './accept-offer/accept-offer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    RegistrationComponent,
     HeaderComponent,
     AccountComponent,
-    OfferComponent
+    OfferComponent,
+    NewOfferComponent,
+    AcceptOfferComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,9 @@ import { OfferComponent } from './dashboard/offer/offer.component';
     MatSelect,
     MatSelectTrigger,
     MatButtonModule,
-    MatCardActions
+    MatCardActions,
+    MatRadioButton,
+    MatRadioGroup
   ],
   providers: [
     provideAnimationsAsync()

@@ -2,7 +2,7 @@ import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {Offer} from "./offer.model";
 import {TelegramService} from "../telegram.service";
 import {MatDrawer} from "@angular/material/sidenav";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpService} from "../http.service";
 import {AccountService} from "../account/account.service";
 import {Filter} from "./filter.model";
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit{
   allLevels: string[];
   allVoivodeships: string[];
   constructor(
-    private http: HttpService,
+    public httpService: HttpService,
     private accountService: AccountService
   ) {}
   ngOnInit() {
@@ -33,19 +33,21 @@ export class DashboardComponent implements OnInit{
     this.allLevels = this.accountService.levels;
     this.allModes = this.accountService.modes;
     this.form = new FormGroup({
-      voivodeship: new FormControl(),
-      mode: new FormControl(),
-      level: new FormControl(),
+      voivodeship: new FormControl('', Validators.required),
+      mode: new FormControl('', Validators.required),
+      level: new FormControl('', Validators.required),
     })
-    this.http.getOffers({}).subscribe(
+    this.httpService.getOffers({}).subscribe(
       offers => this.offers = offers);
-    this.offers = this.http.offers;
+    this.offers = this.httpService.offers;
     // this.tg.MainButton.show();
   }
 
   onFilter() {
     let filter: Filter = {...this.form.value};
-    this.http.getOffers(filter).subscribe(
+    this.httpService.getOffers(filter).subscribe(
     offers => this.offers = offers);
   }
+
+
 }

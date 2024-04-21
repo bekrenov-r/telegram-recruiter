@@ -1,0 +1,49 @@
+<div class="title">Utwórz ofertę pracy</div>
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <mat-form-field>
+    <mat-label>Nazwa stanowiska:</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Opis</mat-label>
+    <input matInput formControlName="description">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Lokalizacja</mat-label>
+    <mat-select formControlName="city">
+      <mat-option *ngFor="let option of allVoivodeships" [value]="option">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Poziom stanowiska
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <mat-radio-group formControlName="level">
+        <mat-radio-button *ngFor="let option of allLevels">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-radio-button>
+      </mat-radio-group>
+    </mat-panel-description>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Wybór trybu pracy
+    </mat-expansion-panel-header>
+    <mat-panel-description>
+      <mat-radio-group formControlName="workMode">
+        <mat-radio-button *ngFor="let option of allModes">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-radio-button>
+      </mat-radio-group>
+    </mat-panel-description>
+  </mat-expansion-panel>
+  <mat-form-field>
+    <mat-label>Technologie</mat-label>
+    <mat-select formControlName="technologies" multiple>
+      <mat-option *ngFor="let option of allTechnologies" [value]="option.name">{{option.text[0].toUpperCase()+option.text.slice(1).toLowerCase()}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwa firmy</mat-label>
+    <input matInput formControlName="companyId">
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit">Stwórz ofertę</button>
+</form>

@@ -1,0 +1,34 @@
+<div class="before-title">
+  Aplikujesz się na stanowisko:
+</div>
+<div class="title" *ngIf="offer">{{offer.name}}</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Imie</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwisko</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Numer telefonu</mat-label>
+    <input matInput formControlName="phone" placeholder="+48...">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Wiadomość do rek</mat-label>
+    <textarea matInput formControlName="messageToRecruiter" cdkTextareaAutosize cdkAutosizeMinRows="3"></textarea>
+  </mat-form-field>
+  <div class="attach-file">
+    <button mat-button type="button" (click)="filePicker.click()"><mat-icon>attach_file</mat-icon>Dołącz CV</button>
+    <input type="file" #filePicker (change)="onFilePicked($event)">
+    <div class="circle" [ngStyle]="{'display':'inline-block'}"></div>
+  </div>
+  <button mat-flat-button type="submit" color="primary">Aplikuj</button>
+
+
+</form>

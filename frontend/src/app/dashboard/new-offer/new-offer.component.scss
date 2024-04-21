@@ -1,0 +1,19 @@
+mat-form-field {
+  width: 100% !important;
+}
+
+
+
+mat-panel-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.circle {
+  background: green;
+  border-radius: 500px;
+  width: 10px;
+  height: 10px;
+}
+

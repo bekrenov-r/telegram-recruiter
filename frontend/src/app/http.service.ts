@@ -9,6 +9,8 @@ import {Offer} from "./dashboard/offer.model";
 
 import {jwtDecode, JwtPayload} from 'jwt-decode';
 import {UserJwtPayload} from "./http/jwt.model";
+import {NewOffer} from "./dashboard/new-offer/new-offer.model";
+import {AcceptOffer} from "./accept-offer/accept-offer.model";
 
 
 @Injectable({
@@ -27,7 +29,7 @@ export class HttpService {
   }
   set token(token: string) {
     this._token = token;
-    let jwtDecoded: JwtPayload = jwtDecode(token);
+    let jwtDecoded: UserJwtPayload = jwtDecode(token);
     this.jwtDecoded = jwtDecoded;
     console.log(jwtDecoded);
   }
@@ -46,6 +48,7 @@ export class HttpService {
     console.log(recruiter)
     return this.http.post<string>(`${environment.backendUrl}/recruiters`, recruiter).pipe(tap(jwt => {
       this.token = jwt;
+      console.log(this.jwtDecoded);
     }))
   }
 
@@ -61,6 +64,23 @@ export class HttpService {
       this.offers = offers;
     }))
   }
+
+  createOffer(offer: NewOffer) {
+    let headers = new HttpHeaders().append('Authorization', this.token);
+
+    return this.http.post(`${environment.backendUrl}/offers`, offer, {headers})
+  }
+
+  acceptOffer(acceptOffer: AcceptOffer) {
+    let headers = new HttpHeaders().append('Authorization', this.token);
+    return this.http.post(`${environment.backendUrl}/applications`, acceptOffer, {headers})
+  }
+  attachCVToApplication(cv: File, offerId: string) {
+    let formData = new FormData().append('', cv);
+    let headers = new HttpHeaders().append('Authorization', this.token);
+    return this.http.patch(`${environment.backendUrl}/applications/${offerId}/cv`, formData, {headers})
+  }
+
 
 
 

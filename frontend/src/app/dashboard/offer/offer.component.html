@@ -13,4 +13,7 @@
     <div><div>{{offer.city}}</div><div>{{offer.company.name}}</div></div>
     <div><div>{{offer.workMode[0].toUpperCase()+offer.workMode.toLowerCase().slice(1)}}</div><div>{{offer.position}}</div></div>
   </div>
+    <mat-card-actions>
+      <button mat-flat-button color="primary" [routerLink]="['/', 'accept-offer', offer.id]">Aplikuj</button>
+    </mat-card-actions>
 </mat-card>

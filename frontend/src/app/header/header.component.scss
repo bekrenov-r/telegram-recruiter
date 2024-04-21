@@ -1,6 +1,10 @@
 mat-toolbar {
   display: flex;
   justify-content: space-between;
-  background: white;
+  background: #00005e;
   background: var(--tg-theme-bg-color);
+  color: white;
+}
+.logo {
+  color: white;
 }

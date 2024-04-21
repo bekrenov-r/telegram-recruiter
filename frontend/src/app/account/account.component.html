@@ -44,5 +44,5 @@
       <mat-option *ngFor="let option of voivodeships" [value]="option">{{option[0].toUpperCase()+option.slice(1).toLowerCase()}}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit">Zaloguj się jako kandydat</button>
+  <button mat-raised-button color="primary" type="submit">Zapisz się jako {{choice === 'pracownik' ? 'kandydat':'rekruter'}}</button>
 </form>
