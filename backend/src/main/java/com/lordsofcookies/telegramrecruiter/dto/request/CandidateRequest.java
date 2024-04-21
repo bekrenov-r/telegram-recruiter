@@ -11,7 +11,6 @@ public record CandidateRequest(
         boolean enableOfferNotifications,
         String preferredLocationVoivodeship,
         Set<Technology> preferredTechnologies,
-        Set<Position> preferredPositions,
         Set<Level> preferredLevels,
         Set<WorkMode> preferredWorkModes
 ) {}

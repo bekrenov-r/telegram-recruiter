@@ -38,12 +38,6 @@ public class Candidate {
     @Enumerated(EnumType.STRING)
     private Set<Technology> preferredTechnologies;
 
-    @ElementCollection(targetClass = Position.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "candidate_position", joinColumns = @JoinColumn(name = "candidate_id"))
-    @Column(name = "position")
-    @Enumerated(EnumType.STRING)
-    private Set<Position> preferredPositions;
-
     @ElementCollection(targetClass = Level.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "candidate_level", joinColumns = @JoinColumn(name = "candidate_id"))
     @Column(name = "level")
